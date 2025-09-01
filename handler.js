@@ -13,7 +13,7 @@ module.exports.websocketDisconnect = async (event) => {
 
 module.exports.sendMessage = async (event) => {
   const message = JSON.parse(event.body);
-  if (!message.id || !message.content || !message.user) {
+  if (!message.id || !message.content || !message.user || typeof message.content !== 'string') {
     return {
       statusCode: 400,
       body: JSON.stringify({ message: 'Invalid message payload' }),
