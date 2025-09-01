@@ -30,10 +30,17 @@ module.exports.sendMessage = async (event) => {
     }
   };
 
-  await docClient.put(params).promise();
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: 'Message sent' }),
-  };
+  try {
+    await docClient.put(params).promise();
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Message sent' }),
+    };
+  } catch (error) {
+    console.error('Error inserting message to DynamoDB:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Error sending message' }),
+    };
+  }
 };
