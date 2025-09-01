@@ -1,0 +1,40 @@
+service: serverless-chat-application
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+
+functions:
+  websocketConnect:
+    handler: handler.websocketConnect
+    events:
+      - websocket:
+          route: $connect
+
+  websocketDisconnect:
+    handler: handler.websocketDisconnect
+    events:
+      - websocket:
+          route: $disconnect
+
+  sendMessage:
+    handler: handler.sendMessage
+    events:
+      - websocket:
+          route: sendMessage
+
+resources:
+  Resources:
+    MessagesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
