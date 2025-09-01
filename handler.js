@@ -13,7 +13,11 @@ module.exports.websocketDisconnect = async (event) => {
 
 module.exports.sendMessage = async (event) => {
   const message = JSON.parse(event.body);
-  const isValidMessage = message.id && message.content && message.user && typeof message.content === 'string';
+  const isValidMessage = message.id &&
+    message.content &&
+    message.user &&
+    typeof message.content === 'string' &&
+    message.content.trim() !== ''; // Ensure content is not just whitespace
   if (!isValidMessage) {
     return {
       statusCode: 400,
