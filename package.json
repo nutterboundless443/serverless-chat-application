@@ -1,0 +1,17 @@
+{
+  "name": "serverless-chat-application",
+  "version": "1.0.0",
+  "description": "无服务器聊天应用程序",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "start": "serverless offline"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1030.0"
+  },
+  "devDependencies": {
+    "serverless": "^2.0.0",
+    "serverless-offline": "^8.0.0"
+  }
+}
